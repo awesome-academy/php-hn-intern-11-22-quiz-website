@@ -3,10 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
+use App\Models\Quiz;
 
-class UserController extends Controller
+class QuizController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -14,9 +24,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-
-        return view('users.index', compact('users'));
+        $quizzes = Quiz::all();
+        
+        return view('quizzes.index', compact('quizzes'));
     }
 
     /**
@@ -48,9 +58,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find('id');
-
-        return view('users.show', compact('user'));
+        //
     }
 
     /**
@@ -61,9 +69,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find('id');
-
-        return view('users.edit', compact('user'));
+        //
     }
 
     /**
@@ -75,10 +81,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->update($request->all());
-    
-        return redirect()->route('users.index');
+        //
     }
 
     /**
