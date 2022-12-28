@@ -3,20 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Quiz;
 
-class QuizController extends Controller
+class QuizQuestionController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     /**
      * Display a listing of the resource.
      *
@@ -24,9 +13,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = Quiz::all();
-        
-        return view('quizzes.index', compact('quizzes'));
+        //
     }
 
     /**
@@ -36,7 +23,7 @@ class QuizController extends Controller
      */
     public function create()
     {
-        return view('quizzes.create');
+        return view('quizquestions.create');
     }
 
     /**

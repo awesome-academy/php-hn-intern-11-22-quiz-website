@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\QuizQuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,3 +24,4 @@ Auth::routes();
 
 Route::resource('quizzes', QuizController::class);
 Route::resource('users', UserController::class)->middleware('auth');
+Route::resource('quizquestions', QuizQuestionController::class);
