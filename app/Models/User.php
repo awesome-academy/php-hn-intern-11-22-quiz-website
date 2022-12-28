@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
+    const ROLE_USER = '1';
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**
@@ -18,10 +19,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'userName',
-        'firstName',
-        'lastName',
+        'username',
+        'first_name',
+        'last_name',
+        'email',
         'password',
+        'role_id',
     ];
 
     /**
