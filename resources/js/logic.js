@@ -3,8 +3,10 @@ $(document).ready(function() {
   var material = 
     '<div class="input-g row mb-3 mt-3"> '+
       '<div class="input-field col s12">' +
-          '<label for="option_name">Answer</label>' +
-          '<input class="form-control mb-3 mt-3" name="option_name" id="option_name" type="text">' +
+          '<label for="answer">Answer</label>' +
+          '<input class="form-control mb-2 mt-2" name="answer[]" id="answer[]" type="text"/>' +
+          '<input type="checkbox" name="checkbox[]" id="checkbox[]" class="mb-3 mt-3 mr-1"/>' +
+          '<label for="checkbox" class="mr-3">Correct</label>' +
           '<span class="delete btn btn-sm btn-primary">Delete</span>' +
       '</div>'
     '</div>';
@@ -15,8 +17,9 @@ $(document).ready(function() {
   var material_text = 
   '<div class="row mb-3 mt-3"> '+
     '<div class="input-field col input-g s12">' +
-        '<label for="option_name">Answer</label>' +
-        '<input class="form-control" name="option_name" id="option_name" type="text">' +
+        '<label for="answer">Answer</label>' +
+        '<input class="form-control" name="answer[]" id="answer[]" type="text">' +
+        '<input type="hidden" name="checkbox[]" id="checkbox[]" value="checked"'+
     '</div>'+
   '</div>';
 

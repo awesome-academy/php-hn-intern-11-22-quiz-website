@@ -13,29 +13,29 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="create" id="boolean">
+                        <form method="POST" action="{{ route('quizzes.quizquestions.store', $quiz) }}" id="boolean">
                             @csrf
                             <div class="row mb-3 mt-3">
                                 <div class="input-field col s12">
                                   <select class="form-control question_type" name="question_type" id="question_type">
-                                    <option value="" disabled selected>{{__('Choose question type')}}</option>
-                                    <option value="text">{{__('Fill-in-the-blank')}}</option>
-                                    <option value="checkbox">{{__('Multiple Choice')}}</option>
-                                    <option value="radio">{{__('Multiple Answer')}}</option>
+                                    <option value="" disabled selected>{{ __('Choose question type') }}</option>
+                                    <option value="text">{{ __('Fill-in-the-blank') }}</option>
+                                    <option value="radio">{{ __('Multiple Choice') }}</option>
+                                    <option value="checkbox">{{ __('Multiple Answer') }}</option>
                                   </select>
                                 </div>                
                             </div>
                             <div class="row mb-3 mt-3">
                               <div class="input-field col s12">
-                                <label for="title">{{__('Question')}}</label>
-                                <input class="form-control" name="title" id="title" type="text">
+                                <label for="title">{{ __('Question') }}</label>
+                                <input class="form-control" name="question" id="question" type="text">
                               </div>  
                             </div>
                             <div class="form-g">
                             </div>
                             <div class="row mb-3 mt-3">
                                 <div class="col text-center">
-                                    <a href="{{ route('quizquestions.create') }}" class="btn btn-sm btn-primary">{{__('Submit')}}</a>
+                                    <button type="submit" class="btn btn-sm btn-primary">{{ __('Submit') }}</button>
                                 </div>
                             </div>
                         </form>

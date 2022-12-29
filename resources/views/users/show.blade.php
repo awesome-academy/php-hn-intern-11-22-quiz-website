@@ -15,7 +15,43 @@
                         <h3 class="mb-0">{{ __('Quiz Created') }}</h3>
                     </div>
                 </div>
-                <div class="card-body pt-0 pt-md-4">
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">{{ __('No') }}</th>
+                                <th scope="col">{{ __('Title') }}</th>
+                                <th scope="col">{{ __('Description') }}</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($quizzes as $quiz)
+                            <tr>
+                                <td>
+                                    {{ $loop->iteration }}
+                                </td>
+                                <td>
+                                    {{ $quiz->title }}
+                                </td>
+                                <td>
+                                    {{ $quiz->description }}
+                                </td>
+                                <td class="text-right">
+                                    <div class="dropdown">
+                                        <a class="btn btn-sm btn-icon-only text-light" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v"></i>
+                                        </a>
+                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                                            <a class="dropdown-item" href="{{ route('quizzes.edit', $quiz->id) }}">Edit</a>
+                                            <a class="dropdown-item" href="{{ route('quizzes.destroy', $quiz->id) }}">Delete</a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
