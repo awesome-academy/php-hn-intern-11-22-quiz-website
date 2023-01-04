@@ -16,9 +16,9 @@
                         {{ $quiz->description }}
                         <div class="col text-center">
                             @if ($quiz->user_id === auth()->user()->id)
-                                <a href="{{  route('quizzes.quizquestions.create', $quiz)  }}" class="btn btn-sm btn-primary mt-3">{{ __('Add Question') }}</a>
+                                <a href="{{ route('quizzes.quizquestions.create', $quiz->id) }}" class="btn btn-sm btn-primary mt-3">{{ __('Add Question') }}</a>
                             @else 
-                                <button class="btn btn-sm btn-primary mt-3">{{ __('Take Quiz') }}</button>
+                                <a class="btn btn-sm btn-primary mt-3" href="{{ route('quizzes.quizquestions.index', $quiz->id) }}">{{ __('Take Quiz') }}</a>
                             @endif
                         </div>
                     </div>
