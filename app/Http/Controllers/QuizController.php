@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Quiz;
+use App\Models\Category;
+use App\Http\Requests\QuizStoreRequest;
 
 class QuizController extends Controller
 {
@@ -36,7 +38,9 @@ class QuizController extends Controller
      */
     public function create()
     {
-        return view('quizzes.create');
+        $categories = Category::all();
+
+        return view('quizzes.create', compact('categories'));
     }
 
     /**
@@ -45,9 +49,12 @@ class QuizController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuizStoreRequest $request)
     {
-        //
+        $request['user_id'] = auth()->user()->id;
+        $quiz = Quiz::create($request->all());
+
+        return redirect()->route('quizzes.show', $quiz->id);
     }
 
     /**
@@ -58,7 +65,9 @@ class QuizController extends Controller
      */
     public function show($id)
     {
-        //
+        $quiz = Quiz::findOrFail($id);
+
+        return view('quizzes.show', compact('quiz'));
     }
 
     /**
@@ -69,7 +78,9 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        //
+        $quiz = Quiz::findOrFail($id);
+
+        return view('quizzes.edit', compact('quiz'));
     }
 
     /**
@@ -79,7 +90,7 @@ class QuizController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(QuizStoreRequest $request, $id)
     {
         //
     }

@@ -24,4 +24,4 @@ Auth::routes();
 
 Route::resource('quizzes', QuizController::class);
 Route::resource('users', UserController::class)->middleware('auth');
-Route::resource('quizquestions', QuizQuestionController::class);
+Route::resource('quizzes.quizquestions', QuizQuestionController::class)->shallow();

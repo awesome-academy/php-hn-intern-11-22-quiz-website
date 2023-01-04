@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class QuizQuestion extends Model
 {
     use HasFactory;
+    const TYPE_TEXT = '1';
+    const TYPE_RADIO = '2';
+    const TYPE_CHECKBOX = '3';
 
     /**
      * The attributes that are mass assignable.
@@ -18,6 +21,7 @@ class QuizQuestion extends Model
         'type',
         'question',
         'number',
+        'quiz_id',
     ];
 
     public function quiz()

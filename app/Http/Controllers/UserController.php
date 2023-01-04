@@ -48,9 +48,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $user = User::find('id');
+        $quizzes = User::findOrfail($id)->quizzes;
 
-        return view('users.show', compact('user'));
+        return view('users.show', compact('quizzes'));
     }
 
     /**

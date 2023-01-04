@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\QuizQuestion;
+use App\Models\Quiz;
+use App\Models\QuizAnswer;
+use App\Http\Requests\QuestionAndAnswerStoreRequest;
 
 class QuizQuestionController extends Controller
 {
@@ -19,11 +23,11 @@ class QuizQuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Faker\View
      */
-    public function create()
+    public function create($quiz)
     {
-        return view('quizquestions.create');
+        return view('quizquestions.create', compact('quiz'));
     }
 
     /**
@@ -32,9 +36,36 @@ class QuizQuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(QuestionAndAnswerStoreRequest $request, $quiz)
     {
-        //
+        switch ($request['question_type']) {
+            case "checkbox":
+                $request['type'] = QuizQuestion::TYPE_CHECKBOX;
+                break;
+            case "radio":
+                $request['type'] = QuizQuestion::TYPE_RADIO;
+                break;
+            case "text":
+                $request['type'] = QuizQuestion::TYPE_TEXT;
+                break;
+        }
+
+        $request['quiz_id'] = $quiz;
+        $request['number'] = QuizQuestion::where('quiz_id', '=', $quiz)->count() + 1;
+        $question = QuizQuestion::create($request->all());
+
+        foreach ($request['answer'] as $key => $answer) {
+            $enter['answer'] = $answer;
+            if (array_key_exists($key, $request['checkbox'])) {
+                $enter['correct'] = 1;
+            } else {
+                $enter['correct'] = 0;
+            }
+            $enter['quiz_question_id'] = $question->id;
+            QuizAnswer::create($enter);
+        }
+
+        return redirect()->route('quizzes.show', $quiz);
     }
 
     /**

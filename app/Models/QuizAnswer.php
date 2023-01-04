@@ -17,6 +17,7 @@ class QuizAnswer extends Model
     protected $fillable = [
         'correct',
         'answer',
+        'quiz_question_id',
     ];
 
     public function quizQuestion()
