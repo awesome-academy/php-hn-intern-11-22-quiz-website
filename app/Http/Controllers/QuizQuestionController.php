@@ -42,7 +42,6 @@ class QuizQuestionController extends Controller
      */
     public function store(QuestionAndAnswerStoreRequest $request, $quiz)
     {
-        dd($request);
         switch ($request['question_type']) {
             case "checkbox":
                 $request['type'] = QuizQuestion::TYPE_CHECKBOX;

@@ -13,19 +13,19 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form method="POST" action="{{ route('takes.store') }}">
+                        <form method="POST" action="{{ route('quizzes.takes.store', $quiz->id) }}">
                             @csrf
                             @forelse ($quiz->quizQuestions as $question)
                                 <p class="flow-text">{{ __('Question') }} {{ $loop->iteration }} - {{ $question->question }}</p>
                                     @if($question->type == App\Models\QuizQuestion::TYPE_TEXT)
                                         <div class="input-field col s12">
                                             <label for="answer">{{ __('Answer') }}</label>
-                                            <input id="answer" type="text" name="answer{{ $question->id }}[]" value="{{ $question}}">
+                                            <input id="answer" type="text" name="answer{{ $question->id }}[]">
                                         </div>
                                     @elseif($question->type == App\Models\QuizQuestion::TYPE_RADIO)
                                         @foreach($question->quizAnswers as $value)
                                             <p class="p-0 m-0">
-                                            <input name="answer{{ $question->id }}]" value="{{ $value->id}}" type="radio" />
+                                            <input name="answer{{ $question->id }}[]" value="{{ $value->id}}" type="radio" />
                                             <label>{{ $value->answer }}</label>
                                             </p>
                                         @endforeach

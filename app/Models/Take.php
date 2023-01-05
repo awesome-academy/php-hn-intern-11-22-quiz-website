@@ -9,6 +9,9 @@ class Take extends Model
 {
     use HasFactory;
 
+    const STATUS_DONE = 1;
+    const INITIAL_SCORE = 0;
+
     public function user()
     {
         return $this->belongsTo(User::class);
