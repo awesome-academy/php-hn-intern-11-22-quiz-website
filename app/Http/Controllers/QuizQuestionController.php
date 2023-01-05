@@ -15,9 +15,11 @@ class QuizQuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id)
     {
-        //
+        $quiz = Quiz::findOrFail($id);
+
+        return view('quizquestions.index', compact('quiz'));
     }
 
     /**
@@ -25,8 +27,10 @@ class QuizQuestionController extends Controller
      *
      * @return \Illuminate\Faker\View
      */
-    public function create($quiz)
+    public function create($id)
     {
+        $quiz = Quiz::findOrFail($id);
+
         return view('quizquestions.create', compact('quiz'));
     }
 
@@ -38,6 +42,7 @@ class QuizQuestionController extends Controller
      */
     public function store(QuestionAndAnswerStoreRequest $request, $quiz)
     {
+        dd($request);
         switch ($request['question_type']) {
             case "checkbox":
                 $request['type'] = QuizQuestion::TYPE_CHECKBOX;
