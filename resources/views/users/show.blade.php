@@ -8,7 +8,7 @@
 
 <div class="container-fluid mt--7">
     <div class="row">
-        <div class="col-xl-6 order-xl-2 mb-5 mb-xl-0">
+        <div class="col-xl-10 order-xl-2 mb-5 mb-xl-0">
             <div class="card bg-secondary shadow">
                 <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
                     <div class="row align-items-center">
@@ -55,14 +55,44 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-6 order-xl-1">
+        <div class="col-xl-10 order-xl-1 mb-5">
             <div class="card bg-secondary shadow">
                 <div class="card-header bg-white border-0">
                     <div class="row align-items-center">
                         <h3 class="mb-0">{{ __('Quiz Taken') }}</h3>
                     </div>
                 </div>
-                <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table align-items-center table-flush">
+                        <thead class="thead-light">
+                            <tr>
+                                <th scope="col">{{ __('No') }}</th>
+                                <th scope="col">{{ __('Score') }}</th>
+                                <th scope="col">{{ __('Title') }}</th>
+                                <th scope="col"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($takes as $take)
+                            <tr>
+                                <td>
+                                    {{ $loop->iteration }}
+                                </td>
+                                <td>
+                                    {{ $take->score }}/{{ $take->quiz->quizQuestions->count() }}
+                                </td>
+                                <td>
+                                    {{ $take->quiz->title }}
+                                </td>
+                                <td>
+                                    <div class="col text-right">
+                                        <a href="{{ route('takes.show', $take->id) }}" class="btn btn-sm btn-primary">{{ __('Review quiz') }}</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
