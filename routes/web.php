@@ -26,7 +26,7 @@ Auth::routes();
 
 Route::get('/quizzes/search', [QuizController::class, 'searchQuiz'])->name('quizzes.search');
 Route::resource('quizzes', QuizController::class);
-Route::resource('users', UserController::class);
+Route::resource('users', UserController::class)->middleware('admin');
 Route::resource('quizzes.quizquestions', QuizQuestionController::class)->shallow();
 Route::resource('quizzes.takes', TakeController::class)->shallow();
-Route::resource('categories', CategoryController::class);
+Route::resource('categories', CategoryController::class)->middleware('admin');

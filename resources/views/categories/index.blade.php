@@ -12,9 +12,11 @@
                         <div class="col-8">
                             <h3 class="mb-0">{{ __('Categories') }}</h3>
                         </div>
-                        <div class="col-4 text-right">
-                            <a href={{ route('categories.create') }} class="btn btn-sm btn-primary">{{ __('Add category') }}</a>
-                        </div>
+                        @if (auth()->user()->role_id == App\Models\User::ROLE_ADMIN)
+                            <div class="col-4 text-right">
+                                <a href={{ route('categories.create') }} class="btn btn-sm btn-primary">{{ __('Add category') }}</a>
+                            </div>
+                        @endif
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -24,7 +26,9 @@
                                 <th scope="col">{{ __('No') }}</th>
                                 <th scope="col">{{ __('Category') }}</th>
                                 <th scope="col"></th>
-                                <th scope="col"></th>
+                                @if (auth()->user()->role_id == App\Models\User::ROLE_ADMIN)
+                                    <th scope="col"></th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
