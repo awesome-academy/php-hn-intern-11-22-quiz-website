@@ -25,14 +25,14 @@
                                     @elseif($question->type == App\Models\QuizQuestion::TYPE_RADIO)
                                         @foreach($question->quizAnswers as $value)
                                             <p class="p-0 m-0">
-                                            <input name="answer{{ $question->id }}[]" value="{{ $value->id}}" type="radio" />
+                                            <input name="answer{{ $question->id }}[]" value="{{ $value->id }}" type="radio" />
                                             <label>{{ $value->answer }}</label>
                                             </p>
                                         @endforeach
                                     @elseif($question->type == App\Models\QuizQuestion::TYPE_CHECKBOX)
                                         @foreach($question->quizAnswers as $value)
                                             <p class="p-0 m-0">
-                                                <input name="answer{{ $question->id }}[]" value="{{ $value->id}}" type="checkbox" />
+                                                <input name="answer{{ $question->id }}[]" value="{{ $value->id }}" type="checkbox" />
                                                 <label>{{ $value->answer }}</label>
                                             </p>
                                         @endforeach
