@@ -9,6 +9,8 @@ class QuizAnswer extends Model
 {
     use HasFactory;
 
+    const MIN_ANSWER = 2;
+
     /**
      * The attributes that are mass assignable.
      *
