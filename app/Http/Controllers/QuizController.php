@@ -92,7 +92,10 @@ class QuizController extends Controller
      */
     public function update(QuizStoreRequest $request, $id)
     {
-        //
+        $quiz = Quiz::findOrFail($id);
+        $quiz->update($request->all());
+
+        return redirect()->route('quizzes.index');
     }
 
     /**

@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\QuizQuestionController;
 use App\Http\Controllers\TakeController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\QuizAnswerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +31,4 @@ Route::resource('users', UserController::class)->middleware('admin');
 Route::resource('quizzes.quizquestions', QuizQuestionController::class)->shallow();
 Route::resource('quizzes.takes', TakeController::class)->shallow();
 Route::resource('categories', CategoryController::class)->middleware('admin');
+Route::resource('quizanswers', QuizAnswerController::class);
