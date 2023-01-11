@@ -92,6 +92,8 @@ class TakeController extends Controller
                 $takeAnswer->save();
             }
         }
+
+        return redirect()->route('takes.show', $take->id);
     }
 
     /**
@@ -102,7 +104,11 @@ class TakeController extends Controller
      */
     public function show($id)
     {
-        //
+        $take = Take::findOrFail($id);
+        $quiz = $take->quiz;
+        $takeAnswers = $take->takeAnswers;
+
+        return view('takes.show', compact(['take', 'quiz', 'takeAnswers']));
     }
 
     /**
