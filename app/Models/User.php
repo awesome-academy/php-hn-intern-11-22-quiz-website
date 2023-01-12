@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class User extends Authenticatable
 {
     const ROLE_USER = '1';
+    const ROLE_ADMIN = '2';
     use HasApiTokens, HasFactory, Notifiable, SoftDeletes;
 
     /**

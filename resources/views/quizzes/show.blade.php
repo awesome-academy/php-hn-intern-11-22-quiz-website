@@ -15,8 +15,8 @@
                     <div class="card-body">
                         {{ $quiz->description }}
                         <div class="col text-center">
-                            @if ($quiz->user_id === auth()->user()->id)
-                                <a href="{{ route('quizzes.quizquestions.create', $quiz->id) }}" class="btn btn-sm btn-primary mt-3">{{ __('Add Question') }}</a>
+                            @if ($quiz->user_id === auth()->user()->id || auth()->user()->role_id == App\Models\User::ROLE_ADMIN)
+                                <a href="{{ route('quizzes.quizquestions.create', $quiz->id) }}" class="btn btn-sm btn-primary mt-3">{{ __('View Question') }}</a>
                             @else 
                                 <a class="btn btn-sm btn-primary mt-3" href="{{ route('quizzes.quizquestions.index', $quiz->id) }}">{{ __('Take Quiz') }}</a>
                             @endif

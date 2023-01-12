@@ -2,7 +2,7 @@
 @section('content')
 @include('users.header', [
     'title' => __('Hello') . ' '. auth()->user()->username,
-    'description' => __('This is your profile page. You can see the quizzes you have taken as well as the quizzes you have created'),
+    'description' => __('This is the user page you can CRUD user here'),
     'class' => 'col-lg-7'
 ])   
 

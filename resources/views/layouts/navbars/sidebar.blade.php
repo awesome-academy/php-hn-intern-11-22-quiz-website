@@ -29,11 +29,13 @@
                         <i class="ni ni-tv-2 text-primary"></i> {{ __('Quiz') }}
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('users.index') }}">
-                        <i class="ni ni-circle-08 text-blue"></i> {{ __('User management') }}
-                    </a>
-                </li>
+                @if (auth()->user()->role_id == App\Models\User::ROLE_ADMIN)
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('users.index') }}">
+                            <i class="ni ni-circle-08 text-blue"></i> {{ __('User management') }}
+                        </a>
+                    </li>
+                @endif
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('categories.index') }}">
                         <i class="ni ni-bullet-list-67" style="color: #f4645f;"></i> {{ __('Categories') }}
