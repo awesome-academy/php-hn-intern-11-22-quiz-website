@@ -69,7 +69,7 @@ class QuizQuestionController extends Controller
             QuizAnswer::create($enter);
         }
 
-        return redirect()->route('quizzes.show', $quiz);
+        return redirect()->route('quizzes.quizquestions.index', $quiz);
     }
 
     /**
@@ -91,7 +91,9 @@ class QuizQuestionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $question = QuizQuestion::findOrFail($id);
+
+        return view('quizquestions.edit', compact('question'));
     }
 
     /**
@@ -103,7 +105,10 @@ class QuizQuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $question = QuizQuestion::findOrFail($id);
+        $question->update($request->all());
+
+        return redirect()->route('quizzes.quizquestions.index', $question->quiz->id);
     }
 
     /**

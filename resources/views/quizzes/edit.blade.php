@@ -15,6 +15,7 @@
                     <div class="card-body">
                         <form method="POST" action="{{ route('quizzes.update', $quiz->id) }}">
                             @csrf
+                            @method('PUT')
                             {{ __('Quiz Title') }}
                             <div class="form-group">
                                 <div class="input-group input-group-alternative mt-3 mb-3">
@@ -27,8 +28,18 @@
                                     <textarea class="form-control" name="description" required>{{ $quiz->description }}</textarea>
                                 </div>
                             </div>
+                            {{ __('Category') }}
+                            <select class="form-control mb-3 mt-3" name="category_id" id="category_id" required>
+                                <option value="" disabled>{{ __('Choose category') }}</option>
+                                @foreach (App\Models\Category::all() as $category)
+                                    @if ($category->id == $quiz->category_id)
+                                        <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                                    @else 
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
                             <div class="col text-center">
-                                <a class="btn btn-sm btn-primary">{{ __('Add Question') }}</a>
                                 <button type="submit" class="btn btn-sm btn-primary">{{ __('Submit') }}</button>
                             </div>
                         </form>
