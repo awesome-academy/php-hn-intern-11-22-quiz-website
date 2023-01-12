@@ -2,15 +2,17 @@
 <nav class="navbar navbar-top navbar-expand-md navbar-dark" id="navbar-main">
     <div class="container-fluid">
         <!-- Brand -->
-        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{ route('quizzes.index') }}">{{ __('Quiz') }}</a>
+        <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block mr-5" href="{{ route('quizzes.index') }}">{{ __('Quiz') }}</a>
         <!-- Form -->
-        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto">
+        <form class="navbar-search navbar-search-dark form-inline mr-3 d-none d-md-flex ml-lg-auto" action="{{ route('quizzes.search') }}">
             <div class="form-group mb-0">
                 <div class="input-group input-group-alternative">
                     <div class="input-group-prepend">
-                        <span class="input-group-text"><i class="fas fa-search"></i></span>
+                        <button type="submit" class="btn btn-link btn-sm btn-primary">
+                            <span class="input-group-text" ><i class="fas fa-search"></i></span>
+                        </button>
                     </div>
-                    <input class="form-control" placeholder="{{ __('Entry Code')}}" type="text">
+                    <input class="form-control" placeholder="{{ session('alert') ? session('alert') : __('Entry Code')}} " type="text" name="search" >
                 </div>
             </div>
         </form>

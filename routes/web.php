@@ -24,6 +24,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/quizzes/search', [QuizController::class, 'searchQuiz'])->name('quizzes.search');
 Route::resource('quizzes', QuizController::class);
 Route::resource('users', UserController::class);
 Route::resource('quizzes.quizquestions', QuizQuestionController::class)->shallow();

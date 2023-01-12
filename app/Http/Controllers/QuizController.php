@@ -105,4 +105,23 @@ class QuizController extends Controller
     {
         //
     }
+
+    /**
+     * Search for quiz
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function searchQuiz(Request $request)
+    {
+        if ($request->search) {
+            $quiz = Quiz::where('id', '=', $request->search)->first();
+            if ($quiz) {
+                return redirect()->route('quizzes.show', $quiz->id);
+            }
+            return redirect()->back()->with('alert', 'No such quiz exist!');
+        } else {
+            return redirect()->back()->with('alert', 'Enter something for the entrycode!');
+        }
+    }
 }
