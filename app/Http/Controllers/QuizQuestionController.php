@@ -60,10 +60,10 @@ class QuizQuestionController extends Controller
 
         foreach ($request['answer'] as $key => $answer) {
             $enter['answer'] = $answer;
-            if (array_key_exists($key, $request['checkbox'])) {
-                $enter['correct'] = 1;
-            } else {
+            if (array_search($key, $request['checkbox'])=== false) {
                 $enter['correct'] = 0;
+            } else {
+                $enter['correct'] = 1;
             }
             $enter['quiz_question_id'] = $question->id;
             QuizAnswer::create($enter);
