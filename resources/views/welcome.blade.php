@@ -6,8 +6,8 @@
             <div class="header-body text-center mt-7 mb-7">
                 <div class="row justify-content-center">
                     <div class="col-lg-5 col-md-6">
-                        <h1 class="text-white">{{ __('Welcome to Qz.') }}</h1>
-                        <h2 class="text-white">{{ __('The world smallest quiz community. Play a quiz or create your own.') }}</h2>
+                        <h1 class="text-white">{{ __('temp.welcome') }}</h1>
+                        <h2 class="text-white">{{ __('temp.smol') }}</h2>
                     </div>
                 </div>
             </div>

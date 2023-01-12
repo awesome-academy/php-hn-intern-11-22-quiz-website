@@ -17,7 +17,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                                     </div>
-                                    <input class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" placeholder="{{ __('Username') }}" type="text" name="username" value="{{ old('username') }}" required autofocus>
+                                    <input class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" placeholder="{{ __('temp.uname') }}" type="text" name="username" value="{{ old('username') }}" required autofocus>
                                 </div>
                                 @if ($errors->has('username'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -30,7 +30,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-email-83"></i></span>
                                     </div>
-                                    <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('Email') }}" type="email" name="email" value="{{ old('email') }}" required>
+                                    <input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" placeholder="{{ __('temp.mail') }}" type="email" name="email" value="{{ old('email') }}" required>
                                 </div>
                                 @if ($errors->has('email'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -43,7 +43,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                                     </div>
-                                    <input class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" placeholder="{{ __('First Name') }}" type="text" name="first_name" value="{{ old('first_name') }}" required autofocus>
+                                    <input class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}" placeholder="{{ __('temp.fname') }}" type="text" name="first_name" value="{{ old('first_name') }}" required autofocus>
                                 </div>
                                 @if ($errors->has('first_name'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -56,7 +56,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-hat-3"></i></span>
                                     </div>
-                                    <input class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" placeholder="{{ __('Last Name') }}" type="text" name="last_name" value="{{ old('last_name') }}" required autofocus>
+                                    <input class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}" placeholder="{{ __('temp.lname') }}" type="text" name="last_name" value="{{ old('last_name') }}" required autofocus>
                                 </div>
                                 @if ($errors->has('last_name'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -69,7 +69,7 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('Password') }}" type="password" name="password" required>
+                                    <input class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" placeholder="{{ __('temp.pass') }}" type="password" name="password" required>
                                 </div>
                                 @if ($errors->has('password'))
                                     <span class="invalid-feedback" style="display: block;" role="alert">
@@ -82,11 +82,11 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
                                     </div>
-                                    <input class="form-control" placeholder="{{ __('Confirm Password') }}" type="password" name="password_confirmation" required>
+                                    <input class="form-control" placeholder="{{ __('temp.conpass') }}" type="password" name="password_confirmation" required>
                                 </div>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary mt-4">{{ __('Create account') }}</button>
+                                <button type="submit" class="btn btn-primary mt-4">{{ __('temp.creacc') }}</button>
                             </div>
                         </form>
                     </div>

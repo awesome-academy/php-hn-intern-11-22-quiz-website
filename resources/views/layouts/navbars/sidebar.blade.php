@@ -26,19 +26,19 @@
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('quizzes.index') }}">
-                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Quiz') }}
+                        <i class="ni ni-tv-2 text-primary"></i> {{ __('temp.qz') }}
                     </a>
                 </li>
                 @if (auth()->user()->role_id == App\Models\User::ROLE_ADMIN)
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('users.index') }}">
-                            <i class="ni ni-circle-08 text-blue"></i> {{ __('User management') }}
+                            <i class="ni ni-circle-08 text-blue"></i> {{ __('temp.uma') }}
                         </a>
                     </li>
                 @endif
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('categories.index') }}">
-                        <i class="ni ni-bullet-list-67" style="color: #f4645f;"></i> {{ __('Categories') }}
+                        <i class="ni ni-bullet-list-67" style="color: #f4645f;"></i> {{ __('temp.cas') }}
                     </a>
                 </li>
             </ul>

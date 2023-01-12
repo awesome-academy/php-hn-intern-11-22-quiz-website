@@ -10,10 +10,10 @@
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
                             <div class="col-8">
-                                <h3 class="mb-0">{{ __('Join a quiz now!') }}</h3>
+                                <h3 class="mb-0">{{ __('temp.jquiz') }}</h3>
                             </div>
                             <div class="col-4 text-right">
-                                <a href="{{ route('quizzes.create') }}" class="btn btn-sm btn-primary">{{ __('Or Create Quiz Right Here!') }}</a>
+                                <a href="{{ route('quizzes.create') }}" class="btn btn-sm btn-primary">{{ __('temp.or') }}</a>
                             </div>
                         </div>
 
@@ -23,8 +23,8 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">{{__('Entry Code')}}</th>
-                                    <th scope="col">{{__('Title')}}</th>
+                                    <th scope="col">{{ __('temp.enc') }}</th>
+                                    <th scope="col">{{ __('temp.tit') }}</th>
                                     <th scope="col"></th>
                                     <th scope="col"></th>
                                 </tr>
@@ -40,7 +40,7 @@
                                         </td>
                                         <td>
                                             <div class="col text-right">
-                                                <a href="{{ route('quizzes.show', $quiz->id) }}" class="btn btn-sm btn-primary">{{__('Join now!')}}</a>
+                                                <a href="{{ route('quizzes.show', $quiz->id) }}" class="btn btn-sm btn-primary">{{ __('temp.jnow') }}</a>
                                             </div>
                                         </td>
                                         @if ($quiz->user_id === auth()->user()->id || auth()->user()->role_id == App\Models\User::ROLE_ADMIN)
@@ -50,11 +50,11 @@
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        <a class="dropdown-item" href="{{ route('quizzes.edit', $quiz->id) }}">{{ __('Edit') }}</a>
+                                                        <a class="dropdown-item" href="{{ route('quizzes.edit', $quiz->id) }}">{{ __('temp.edit') }}</a>
                                                         <form action="{{ route('quizzes.destroy', $quiz->id ) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="dropdown-item js-btn-delete"> {{ __('Delete') }}</button>
+                                                            <button type="submit" class="dropdown-item js-btn-delete"> {{ __('temp.delete') }}</button>
                                                         </form>
                                                     </div>
                                                 </div>

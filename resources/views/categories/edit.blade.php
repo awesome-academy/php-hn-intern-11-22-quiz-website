@@ -9,21 +9,21 @@
                 <div class="card shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
-                            <h3 class="mb-0">{{ __('Edit Category') }}</h3>
+                            <h3 class="mb-0">{{ __('temp.edca') }}</h3>
                         </div>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('categories.update', $category->id) }}">
                             @csrf
                             @method('PUT')
-                            {{ __('Category Name') }}
+                            {{ __('temp.cana') }}
                             <div class="form-group">
                                 <div class="input-group input-group-alternative mt-3 mb-3">
                                     <input class="form-control" value={{ $category->name }} name="name" required>
                                 </div>
                             </div>
                             <div class="col text-center">
-                                <button type="submit" class="btn btn-sm btn-primary">{{ __('Submit') }}</button>
+                                <button type="submit" class="btn btn-sm btn-primary">{{ __('temp.sub') }}</button>
                             </div>
                         </form>
                     </div>

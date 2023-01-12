@@ -9,7 +9,7 @@
                 <div class="card shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
-                            <h3 class="mb-0">{{ __('Join a quiz now!') }}</h3>
+                            <h3 class="mb-0">{{ __('temp.jquiz') }}</h3>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -17,8 +17,8 @@
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">{{ __('Entry Code') }}</th>
-                                    <th scope="col">{{ __('Title') }}</th>
+                                    <th scope="col">{{ __('temp.enc')}}</th>
+                                    <th scope="col">{{ __('temp.tit')}}</th>
                                     <th scope="col">
                                         
                                     </th>
@@ -35,7 +35,7 @@
                                         </td>
                                         <td>
                                             <div class="col text-right">
-                                                <a href="{{ route('quizzes.show', $quiz->id) }}" class="btn btn-sm btn-primary">{{__('Join now!')}}</a>
+                                                <a href="{{ route('quizzes.show', $quiz->id) }}" class="btn btn-sm btn-primary">{{ __('temp.jnow') }}</a>
                                             </div>
                                         </td>
                                     </tr>

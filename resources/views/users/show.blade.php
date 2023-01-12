@@ -1,8 +1,8 @@
-@extends('layouts.app', ['title' => __('User Profile')])
+@extends('layouts.app', ['title' => __('temp.prof')])
 @section('content')
 @include('users.header', [
-    'title' => __('Hello') . ' '. auth()->user()->username,
-    'description' => __('This is your profile page. You can see the quizzes you have taken as well as the quizzes you have created'),
+    'title' => __('temp.hello') . ' '. auth()->user()->username,
+    'description' => __('temp.ctqz'),
     'class' => 'col-lg-7'
 ])   
 
@@ -12,16 +12,16 @@
             <div class="card bg-secondary shadow">
                 <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">
                     <div class="row align-items-center">
-                        <h3 class="mb-0">{{ __('Quiz Created') }}</h3>
+                        <h3 class="mb-0">{{ __('temp.cqz') }}</h3>
                     </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">{{ __('No') }}</th>
-                                <th scope="col">{{ __('Title') }}</th>
-                                <th scope="col">{{ __('Description') }}</th>
+                                <th scope="col">{{ __('temp.num') }}</th>
+                                <th scope="col">{{ __('temp.tit') }}</th>
+                                <th scope="col">{{ __('temp.des') }}</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -59,16 +59,16 @@
             <div class="card bg-secondary shadow">
                 <div class="card-header bg-white border-0">
                     <div class="row align-items-center">
-                        <h3 class="mb-0">{{ __('Quiz Taken') }}</h3>
+                        <h3 class="mb-0">{{ __('temp.taken') }}</h3>
                     </div>
                 </div>
                 <div class="table-responsive">
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">{{ __('No') }}</th>
-                                <th scope="col">{{ __('Score') }}</th>
-                                <th scope="col">{{ __('Title') }}</th>
+                                <th scope="col">{{ __('temp.num') }}</th>
+                                <th scope="col">{{ __('temp.score') }}</th>
+                                <th scope="col">{{ __('temp.tit') }}</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -86,7 +86,7 @@
                                 </td>
                                 <td>
                                     <div class="col text-right">
-                                        <a href="{{ route('takes.show', $take->id) }}" class="btn btn-sm btn-primary">{{ __('Review quiz') }}</a>
+                                        <a href="{{ route('takes.show', $take->id) }}" class="btn btn-sm btn-primary">{{ __('temp.review') }}</a>
                                     </div>
                                 </td>
                             </tr>
