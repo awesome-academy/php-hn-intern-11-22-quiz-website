@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -67,7 +68,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find('id');
+        $user = User::findOrFail($id);
 
         return view('users.edit', compact('user'));
     }
@@ -79,9 +80,9 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UserUpdateRequest $request, $id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         $user->update($request->all());
     
         return redirect()->route('users.index');
