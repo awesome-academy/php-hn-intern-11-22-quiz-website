@@ -81,7 +81,7 @@
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                                                         <a class="dropdown-item" href="{{ route('quizanswers.edit', $value->id) }}">{{ __('Edit') }}</a>
-                                                        <form action="{{ route('quizanswers.destroy', $vlue->id ) }}" method="POST">
+                                                        <form action="{{ route('quizanswers.destroy', $value->id ) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button type="submit" class="dropdown-item js-btn-delete"> {{ __('Delete') }}</button>

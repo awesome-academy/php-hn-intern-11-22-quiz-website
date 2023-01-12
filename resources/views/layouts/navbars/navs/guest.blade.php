@@ -23,18 +23,50 @@
                     </div>
                 </div>
             </div>
+            <ul class="navbar-nav align-items-center d-none d-md-flex">
+                <li class="nav-item dropdown">
+                    <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <div class="media align-items-center">
+                            <div class="media-body ml-2 d-none d-lg-block">
+                                <span class="mb-0 text-sm  font-weight-bold"> 
+                                    {{ __('temp.lang') }} 
+                                    @switch(session()->get('locale'))
+                                        @case('en')
+                                            {{ __('temp.en') }}
+                                            @break
+                                        @case('vi')
+                                            {{ __('temp.vi') }}
+                                            @break
+                                        @default
+                                            {{ __('temp.en') }}
+                                    @endswitch
+                                </span>
+                            </div>
+                        </div>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-arrow dropdown-menu-right">
+                        <a href="{{ route('lang', ['en']) }}" class="dropdown-item">
+                            <span>{{ __('temp.en') }}</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="{{ route('lang', ['vi']) }}" class="dropdown-item">
+                            <span>{{ __('temp.vi') }}</span>
+                        </a>
+                    </div>
+                </li>
+            </ul>
             <!-- Navbar items -->
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('register') }}">
                         <i class="ni ni-circle-08"></i>
-                        <span class="nav-link-inner--text">{{ __('Register') }}</span>
+                        <span class="nav-link-inner--text">{{ __('temp.res') }}</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-icon" href="{{ route('login') }}">
                         <i class="ni ni-key-25"></i>
-                        <span class="nav-link-inner--text">{{ __('Login') }}</span>
+                        <span class="nav-link-inner--text">{{ __('temp.in') }}</span>
                     </a>
                 </li>
             </ul>

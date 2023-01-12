@@ -7,6 +7,7 @@ use App\Http\Controllers\QuizQuestionController;
 use App\Http\Controllers\TakeController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\QuizAnswerController;
+use App\Http\Controllers\LocalizationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('lang/{locale}', [LocalizationController::class, 'index'])->name('lang');
 Route::get('/quizzes/search', [QuizController::class, 'searchQuiz'])->name('quizzes.search');
 Route::resource('quizzes', QuizController::class);
 Route::resource('users', UserController::class)->middleware('admin');
