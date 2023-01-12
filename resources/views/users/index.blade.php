@@ -56,8 +56,12 @@
                                             <i class="fas fa-ellipsis-v"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href="{{route('users.edit', $user->id)}}">{{ __('Edit') }}</a>
-                                            <a class="dropdown-item" href="{{route('users.destroy', $user->id)}}">{{ __('Delete') }}</a>
+                                            <a class="dropdown-item" href="{{ route('users.edit', $user->id) }}">{{ __('Edit') }}</a>
+                                            <form action="{{ route('users.destroy', $user->id ) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="dropdown-item js-btn-delete"> {{ __('Delete') }}</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </td>
