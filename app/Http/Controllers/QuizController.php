@@ -106,7 +106,18 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $quiz = Quiz::findOrFail($id);
+        foreach ($quiz->quizQuestions as $question) {
+            $question->quizAnswers()->delete();
+        }
+        foreach ($quiz->takes as $take) {
+            $take->takeAnswers()->delete();
+        }
+        $quiz->quizquestions()->delete();
+        $quiz->takes()->delete();
+        $quiz->delete();
+
+        return redirect()->back();
     }
 
     /**

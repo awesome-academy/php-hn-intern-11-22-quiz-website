@@ -119,6 +119,10 @@ class QuizQuestionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $question = QuizQuestion::findOrFail($id);
+        $question->quizAnswers()->delete();
+        $question->delete();
+
+        return redirect()->back();
     }
 }

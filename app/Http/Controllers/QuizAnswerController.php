@@ -85,6 +85,12 @@ class QuizAnswerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $answer = QuizAnswer::findOrFail($id);
+        $numberAnswer = QuizAnswer::where('quiz_question_id', '=', $answer->quiz_question_id)->count();
+        if ($numberAnswer > QuizAnswer::MIN_ANSWER) {
+            $answer->delete();
+        }
+        
+        return redirect()->back();
     }
 }
