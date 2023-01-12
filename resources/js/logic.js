@@ -41,4 +41,8 @@ $(document).ready(function() {
       $(".form-g").html(material_text);
     }
   });
+
+  $('.js-btn-delete').on("click", function(){
+    confirm('Are you sure?');
+  });
 });
