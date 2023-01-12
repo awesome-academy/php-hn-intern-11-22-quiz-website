@@ -9,32 +9,32 @@
                 <div class="card shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
-                            <h3 class="mb-0">{{ __('Create Quiz') }}</h3>
+                            <h3 class="mb-0">{{ __('temp.newqz') }}</h3>
                         </div>
                     </div>
                     <div class="card-body">
                         <form method="POST" action="{{ route('quizzes.store') }}">
                             @csrf
-                            {{ __('Quiz Title') }}
+                            {{ __('temp.qztit') }}
                             <div class="form-group">
                                 <div class="input-group input-group-alternative mt-3 mb-3">
-                                    <input class="form-control" placeholder="{{ __('Title') }}" name="title" required>
+                                    <input class="form-control" placeholder="{{ __('temp.tit') }}" name="title" required>
                                 </div>
                             </div>
-                            {{ __('Quiz Description') }}
+                            {{ __('temp.qzdes') }}
                             <div class="form-group">
                                 <div class="input-group input-group-alternative mt-3 mb-3">
-                                    <textarea class="form-control" placeholder="{{ __('Description') }}" name="description" required></textarea>
+                                    <textarea class="form-control" placeholder="{{ __('temp.des') }}" name="description" required></textarea>
                                 </div>
                             </div>
                             <select class="form-control mb-3 mt-3" name="category_id" id="category_id" required>
-                                <option value="" disabled selected>{{ __('Choose a category') }}</option>
+                                <option value="" disabled selected>{{ __('temp.chooseca') }}</option>
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach
                               </select>
                             <div class="col text-center">
-                                <button type="submit" class="btn btn-sm btn-primary">{{ __('Submit') }}</button>
+                                <button type="submit" class="btn btn-sm btn-primary">{{ __('temp.sub') }}</button>
                             </div>
                         </form>
                     </div>

@@ -9,7 +9,7 @@
                 <div class="card shadow">
                     <div class="card-header bg-white border-0">
                         <div class="row align-items-center">
-                            <h3 class="mb-0">{{ __('Edit Question') }}</h3>
+                            <h3 class="mb-0">{{ __('temp.edans') }}</h3>
                         </div>
                     </div>
                     <div class="card-body">
@@ -18,13 +18,13 @@
                             @method("PUT")
                             <div class="row mb-3 mt-3">
                               <div class="input-field col s12">
-                                <label for="title">{{ __('Answer') }}</label>
+                                <label for="title">{{ __('temp.ans') }}</label>
                                 <input class="form-control" name="answer" id="answer" type="text" value="{{ $answer->answer }}">
                               </div>  
                             </div>
                             <div class="row mb-3 mt-3">
                                 <div class="col text-center">
-                                    <button type="submit" class="btn btn-sm btn-primary">{{ __('Submit') }}</button>
+                                    <button type="submit" class="btn btn-sm btn-primary">{{ __('temp.sub') }}</button>
                                 </div>
                             </div>
                         </form>

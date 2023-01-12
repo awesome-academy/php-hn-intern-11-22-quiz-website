@@ -1,8 +1,8 @@
-@extends('layouts.app', ['title' => __('User Management')])  
+@extends('layouts.app', ['title' => __('temp.uma')])  
 @section('content')
 @include('users.header', [
-    'title' => __('Hello') . ' '. auth()->user()->username,
-    'description' => __('This is the user page you can CRUD user here'),
+    'title' => __('temp.hello') . ' '. auth()->user()->username,
+    'description' => __('temp.crudu'),
     'class' => 'col-lg-7'
 ])   
 
@@ -13,10 +13,10 @@
                 <div class="card-header border-0">
                     <div class="row align-items-center">
                         <div class="col-8">
-                            <h3 class="mb-0">{{ __('Users') }}</h3>
+                            <h3 class="mb-0">{{ __('temp.us') }}</h3>
                         </div>
                         <div class="col-4 text-right">
-                            <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary">{{ __('Add user') }}</a>
+                            <a href="{{ route('users.create') }}" class="btn btn-sm btn-primary">{{ __('temp.newu') }}</a>
                         </div>
                     </div>
                 </div>
@@ -24,11 +24,11 @@
                     <table class="table align-items-center table-flush">
                         <thead class="thead-light">
                             <tr>
-                                <th scope="col">{{ __('No') }}</th>
-                                <th scope="col">{{ __('Username') }}</th>
-                                <th scope="col">{{ __('Email') }}</th>
-                                <th scope="col">{{ __('First Name') }}</th>
-                                <th scope="col">{{ __('Last Name') }}</th>
+                                <th scope="col">{{ __('temp.num') }}</th>
+                                <th scope="col">{{ __('temp.uname') }}</th>
+                                <th scope="col">{{ __('temp.mail') }}</th>
+                                <th scope="col">{{ __('temp.fname') }}</th>
+                                <th scope="col">{{ __('temp.lname') }}</th>
                                 <th scope="col"></th>
                             </tr>
                         </thead>
@@ -56,11 +56,11 @@
                                             <i class="fas fa-ellipsis-v"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                            <a class="dropdown-item" href="{{ route('users.edit', $user->id) }}">{{ __('Edit') }}</a>
+                                            <a class="dropdown-item" href="{{ route('users.edit', $user->id) }}">{{ __('temp.edit') }}</a>
                                             <form action="{{ route('users.destroy', $user->id ) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="dropdown-item js-btn-delete"> {{ __('Delete') }}</button>
+                                                <button type="submit" class="dropdown-item js-btn-delete"> {{ __('temp.delete') }}</button>
                                             </form>
                                         </div>
                                     </div>

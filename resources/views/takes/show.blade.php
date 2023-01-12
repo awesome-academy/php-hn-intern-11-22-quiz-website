@@ -14,10 +14,10 @@
                     </div>
                     <div class="card-body">
                         <h3 class="mb-0">
-                            {{ __('Score: ') . $take->score . "/" . $take->quiz->quizQuestions->count() }}
+                            {{ __('temp.score ') . ": ". $take->score . "/" . $take->quiz->quizQuestions->count() }}
                         </h3>
                             @forelse ($quiz->quizQuestions as $question)
-                                <p class="flow-text">{{ __('Question') }} {{ $loop->iteration }} - {{ $question->question }}</p>
+                                <p class="flow-text">{{ __('temp.que') }} {{ $loop->iteration }} - {{ $question->question }}</p>
                                 @if($question->type == App\Models\QuizQuestion::TYPE_TEXT)
                                     @foreach($takeAnswers as $takeAnswer)
                                         @if($takeAnswer->quiz_question_id == $question->id)
@@ -59,7 +59,7 @@
                                 @endif
                                 <div class="divider m-1"></div>
                             @empty
-                                <span class='flow-text center-align'>{{ __('Nothing to show') }}</span>
+                                <span class='flow-text center-align'>{{ __('temp.nothing') }}</span>
                             @endforelse
                     </div>
                 </div>

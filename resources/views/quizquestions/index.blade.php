@@ -19,7 +19,7 @@
                                     <tr>
                                         <td class="p-0 m-0">
                                             <p class="flow-text">
-                                                {{ __('Question') }} {{ $loop->iteration }} - {{ $question->question }}
+                                                {{ __('temp.que') }} {{ $loop->iteration }} - {{ $question->question }}
                                             </p>
                                         </td>
                                         <td class="p-0 m-0">
@@ -28,11 +28,11 @@
                                                     <i class="fas fa-ellipsis-v"></i>
                                                 </a>
                                                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                    <a class="dropdown-item" href="{{ route('quizquestions.edit', $question->id) }}">{{ __('Edit') }}</a>
+                                                    <a class="dropdown-item" href="{{ route('quizquestions.edit', $question->id) }}">{{ __('temp.edit') }}</a>
                                                     <form action="{{ route('quizquestions.destroy', $question->id ) }}" method="POST">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit" class="dropdown-item js-btn-delete"> {{ __('Delete') }}</button>
+                                                        <button type="submit" class="dropdown-item js-btn-delete"> {{ __('temp.delete') }}</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -51,11 +51,11 @@
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        <a class="dropdown-item" href="{{ route('quizanswers.edit', $question->quizAnswers->first()->id) }}">{{ __('Edit') }}</a>
+                                                        <a class="dropdown-item" href="{{ route('quizanswers.edit', $question->quizAnswers->first()->id) }}">{{ __('temp.edit') }}</a>
                                                         <form action="{{ route('quizanswers.destroy', $question->quizAnswers->first()->id ) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="dropdown-item js-btn-delete"> {{ __('Delete') }}</button>
+                                                            <button type="submit" class="dropdown-item js-btn-delete"> {{ __('temp.delete') }}</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -80,11 +80,11 @@
                                                         <i class="fas fa-ellipsis-v"></i>
                                                     </a>
                                                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                        <a class="dropdown-item" href="{{ route('quizanswers.edit', $value->id) }}">{{ __('Edit') }}</a>
+                                                        <a class="dropdown-item" href="{{ route('quizanswers.edit', $value->id) }}">{{ __('temp.edit') }}</a>
                                                         <form action="{{ route('quizanswers.destroy', $value->id ) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
-                                                            <button type="submit" class="dropdown-item js-btn-delete"> {{ __('Delete') }}</button>
+                                                            <button type="submit" class="dropdown-item js-btn-delete"> {{ __('temp.delete') }}</button>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -110,11 +110,11 @@
                                                             <i class="fas fa-ellipsis-v"></i>
                                                         </a>
                                                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                                                            <a class="dropdown-item" href="{{ route('quizanswers.edit', $value->id) }}">{{ __('Edit') }}</a>
+                                                            <a class="dropdown-item" href="{{ route('quizanswers.edit', $value->id) }}">{{ __('temp.edit') }}</a>
                                                             <form action="{{ route('quizanswers.destroy', $value->id ) }}" method="POST">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                <button type="submit" class="dropdown-item js-btn-delete"> {{ __('Delete') }}</button>
+                                                                <button type="submit" class="dropdown-item js-btn-delete"> {{ __('temp.delete') }}</button>
                                                             </form>
                                                         </div>
                                                     </div>
@@ -124,20 +124,20 @@
                                     @endif
                                     <div class="divider m-1"></div>
                                 @empty
-                                    <span class='flow-text center-align'>{{ __('Nothing to show') }}</span>
+                                    <span class='flow-text center-align'>{{ __('temp.nothing') }}</span>
                                 @endforelse
                             </table>
                             <div class="text-center">
-                                <a href="{{ route('quizzes.quizquestions.create', $quiz->id) }}" class="btn btn-sm btn-primary mt-3">{{ __('Add Question') }}</a>
+                                <a href="{{ route('quizzes.quizquestions.create', $quiz->id) }}" class="btn btn-sm btn-primary mt-3">{{ __('temp.newque') }}</a>
                             </div>
                         @else
                             <form method="POST" action="{{ route('quizzes.takes.store', $quiz->id) }}">
                                 @csrf
                                 @forelse ($quiz->quizQuestions as $question)
-                                    <p class="flow-text">{{ __('Question') }} {{ $loop->iteration }} - {{ $question->question }}</p>
+                                    <p class="flow-text">{{ __('temp.que') }} {{ $loop->iteration }} - {{ $question->question }}</p>
                                         @if($question->type == App\Models\QuizQuestion::TYPE_TEXT)
                                             <div class="input-field col s12">
-                                                <label for="answer">{{ __('Answer') }}</label>
+                                                <label for="answer">{{ __('temp.ans') }}</label>
                                                 <input id="answer" type="text" name="answer{{ $question->id }}[]">
                                             </div>
                                         @elseif($question->type == App\Models\QuizQuestion::TYPE_RADIO)
@@ -157,10 +157,10 @@
                                         @endif 
                                     <div class="divider m-1"></div>
                                 @empty
-                                    <span class='flow-text center-align'>{{ __('Nothing to show') }}</span>
+                                    <span class='flow-text center-align'>{{ __('temp.nothing') }}</span>
                                 @endforelse
                                 <div class="col text-center">
-                                    <button type="submit" class="btn btn-sm btn-primary">{{ __('Submit') }}</button>
+                                    <button type="submit" class="btn btn-sm btn-primary">{{ __('temp.sub') }}</button>
                                 </div>
                             </form>
                         @endif
