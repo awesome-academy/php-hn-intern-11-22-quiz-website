@@ -3,20 +3,27 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Quiz;
-use App\Models\Category;
 use App\Http\Requests\QuizStoreRequest;
+use App\Repositories\Quiz\QuizRepositoryInterface;
+use App\Repositories\Category\CategoryRepositoryInterface;
 
 class QuizController extends Controller
 {
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * @var QuizRepositoryInterface
      */
-    public function __construct()
-    {
-        $this->middleware('auth');
+    protected $quizRepo;
+    /**
+     * @var CategoryRepositoryInterface
+     */
+    protected $categoryRepo;
+
+    public function __construct(
+        QuizRepositoryInterface $quizRepo,
+        CategoryRepositoryInterface $categoryRepo
+    ) {
+        $this->quizRepo = $quizRepo;
+        $this->categoryRepo = $categoryRepo;
     }
     
     /**
@@ -26,7 +33,7 @@ class QuizController extends Controller
      */
     public function index()
     {
-        $quizzes = Quiz::all();
+        $quizzes = $this->quizRepo->getAll();
         
         return view('quizzes.index', compact('quizzes'));
     }
@@ -38,7 +45,7 @@ class QuizController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = $this->categoryRepo->getAll();
 
         return view('quizzes.create', compact('categories'));
     }
@@ -52,7 +59,7 @@ class QuizController extends Controller
     public function store(QuizStoreRequest $request)
     {
         $request['user_id'] = auth()->user()->id;
-        $quiz = Quiz::create($request->all());
+        $quiz = $this->quizRepo->create($request->all());
 
         return redirect()->route('quizzes.show', $quiz->id);
     }
@@ -65,7 +72,7 @@ class QuizController extends Controller
      */
     public function show($id)
     {
-        $quiz = Quiz::findOrFail($id);
+        $quiz = $this->quizRepo->find($id);
 
         return view('quizzes.show', compact('quiz'));
     }
@@ -78,7 +85,7 @@ class QuizController extends Controller
      */
     public function edit($id)
     {
-        $quiz = Quiz::findOrFail($id);
+        $quiz = $this->quizRepo->find($id);
 
         return view('quizzes.edit', compact('quiz'));
     }
@@ -92,8 +99,7 @@ class QuizController extends Controller
      */
     public function update(QuizStoreRequest $request, $id)
     {
-        $quiz = Quiz::findOrFail($id);
-        $quiz->update($request->all());
+        $this->quizRepo->update($id, $request->all());
 
         return redirect()->route('quizzes.index');
     }
@@ -106,16 +112,7 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
-        $quiz = Quiz::findOrFail($id);
-        foreach ($quiz->quizQuestions as $question) {
-            $question->quizAnswers()->delete();
-        }
-        foreach ($quiz->takes as $take) {
-            $take->takeAnswers()->delete();
-        }
-        $quiz->quizquestions()->delete();
-        $quiz->takes()->delete();
-        $quiz->delete();
+        $this->quizRepo->deleteQuiz($id);
 
         return redirect()->back();
     }
@@ -129,7 +126,7 @@ class QuizController extends Controller
     public function searchQuiz(Request $request)
     {
         if ($request->search) {
-            $quiz = Quiz::where('id', '=', $request->search)->first();
+            $quiz = $this->quizRepo->getQuiz($request->search);
             if ($quiz) {
                 return redirect()->route('quizzes.show', $quiz->id);
             }
