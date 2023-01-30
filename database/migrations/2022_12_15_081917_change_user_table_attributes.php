@@ -40,9 +40,10 @@ class ChangeUserTableAttributes extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
-            $table->string('first_name');
-            $table->string('last_name');
+            $table->dropColumn('first_name');
+            $table->dropColumn('last_name');
             $table->dropColumn('deleted_at');
+            $table->dropForeign('users_role_id_foreign');
             $table->dropColumn('role_id');
         });
     }

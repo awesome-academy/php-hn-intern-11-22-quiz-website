@@ -22,7 +22,7 @@ use App\Http\Controllers\LocalizationController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Auth::routes();
 
