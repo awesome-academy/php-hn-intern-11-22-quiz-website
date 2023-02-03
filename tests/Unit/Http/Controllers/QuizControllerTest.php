@@ -147,9 +147,14 @@ class QuizControllerTest extends TestCase
 
     public function tearDown(): void
     {
-        Mockery::close();
         unset($this->quizMock);
         unset($this->categoryMock);
+        unset($this->quizController);
+        unset($this->user);
+        unset($this->categories);
+        unset($this->quizzes);
+        unset($this->quiz);
+        Mockery::close();
         parent::tearDown();
     }
 }

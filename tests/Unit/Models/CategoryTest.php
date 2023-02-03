@@ -9,6 +9,14 @@ use Tests\ModelTestCase;
 
 class CategoryTest extends ModelTestCase
 {
+    protected $category;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->category = new Category();
+    }
+
     public function testModelConfiguration()
     {
         $this->runConfigurationAssertions(
@@ -26,8 +34,13 @@ class CategoryTest extends ModelTestCase
 
     public function testQuizzesRelation()
     {
-        $category = new Category();
-        $quizzes = $category->quizzes();
-        $this->assertHasManyRelation($quizzes, $category, new Quiz());
+        $quizzes = $this->category->quizzes();
+        $this->assertHasManyRelation($quizzes, $this->category, new Quiz());
+    }
+
+    public function tearDown(): void
+    {
+        unset($this->category);
+        parent::tearDown();
     }
 }

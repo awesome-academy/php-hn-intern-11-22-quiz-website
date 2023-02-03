@@ -12,6 +12,14 @@ use Tests\ModelTestCase;
 
 class QuizTest extends ModelTestCase
 {
+    protected $quiz;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->quiz = new Quiz();
+    }
+
     public function testModelConfiguration()
     {
         $this->runConfigurationAssertions(
@@ -34,29 +42,31 @@ class QuizTest extends ModelTestCase
 
     public function testQuizQuestionsRelation()
     {
-        $quiz = new Quiz();
-        $quizQuestions = $quiz->quizQuestions();
-        $this->assertHasManyRelation($quizQuestions, $quiz, new QuizQuestion());
+        $quizQuestions = $this->quiz->quizQuestions();
+        $this->assertHasManyRelation($quizQuestions, $this->quiz, new QuizQuestion());
     }
 
     public function testTakesRelation()
     {
-        $quiz = new Quiz();
-        $takes = $quiz->takes();
-        $this->assertHasManyRelation($takes, $quiz, new Take());
+        $takes = $this->quiz->takes();
+        $this->assertHasManyRelation($takes, $this->quiz, new Take());
     }
 
     public function testCategoryRelation()
     {
-        $quiz = new Quiz();
-        $category = $quiz->category();
-        $this->assertBelongsToRelation($category, $quiz, new Category(), 'category_id');
+        $category = $this->quiz->category();
+        $this->assertBelongsToRelation($category, $this->quiz, new Category(), 'category_id');
     }
 
     public function testUserRelation()
     {
-        $quiz = new Quiz();
-        $user = $quiz->user();
-        $this->assertBelongsToRelation($user, $quiz, new User(), 'user_id');
+        $user = $this->quiz->user();
+        $this->assertBelongsToRelation($user, $this->quiz, new User(), 'user_id');
+    }
+
+    public function tearDown(): void
+    {
+        unset($this->quiz);
+        parent::tearDown();
     }
 }

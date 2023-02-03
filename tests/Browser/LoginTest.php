@@ -5,11 +5,12 @@ namespace Tests\Browser;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Laravel\Dusk\Browser;
 use Tests\DuskTestCase;
+use App\Models\User;
+use App\Models\Role;
 
 class LoginTest extends DuskTestCase
 {
     use DatabaseMigrations;
-    const EMAIL = 'phamvuhuy@mail.com';
     const PASSWORD = 'password';
     const WRONG_EMAIL = 'bingbong@chingchong';
     const WRONG_PASSWORD = 'chingchong';
@@ -72,12 +73,17 @@ class LoginTest extends DuskTestCase
 
     public function testLoginSuccess()
     {
-        $this->browse(function (Browser $browser) {
+        $role = new Role();
+        $role->role = 'User';
+        $role->save();
+        $user = User::factory()->create(['role_id' => $role->id]);
+
+        $this->browse(function (Browser $browser) use ($user) {
             $browser->visit('/login')
-                ->type('email', static::EMAIL)
+                ->type('email', $user->email)
                 ->type('password', static::PASSWORD)
                 ->clickAndWaitForReload('@submit-form-login')
-                ->assertSee(__('temp.welcome'));
+                ->assertRouteIs('home');
         });
     }
 }
