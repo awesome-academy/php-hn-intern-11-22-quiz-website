@@ -7,9 +7,21 @@ use App\Models\User;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Support\Facades\Hash;
+use App\Repositories\User\UserRepositoryInterface;
 
 class UserController extends Controller
 {
+    /**
+     * @var UserRepositoryInterface
+     */
+    protected $userRepo;
+
+    public function __construct(
+        UserRepositoryInterface $userRepo
+    ) {
+        $this->userRepo = $userRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +29,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
+        $users = $this->userRepo->getAll();
 
         return view('users.index', compact('users'));
     }
@@ -41,7 +53,7 @@ class UserController extends Controller
     public function store(UserStoreRequest $request)
     {
         $request['password'] = Hash::make($request->password);
-        User::create($request->all());
+        $this->userRepo->create($request->all());
 
         return redirect()->route('users.index');
     }
@@ -54,8 +66,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $quizzes = User::findOrfail($id)->quizzes;
-        $takes = User::findOrFail($id)->takes;
+        $quizzes = $this->userRepo->getQuizzes($id);
+        $takes = $this->userRepo->getTakes($id);
 
         return view('users.show', compact(['quizzes', 'takes']));
     }
@@ -68,7 +80,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id);
+        $user = $this->userRepo->find($id);
 
         return view('users.edit', compact('user'));
     }
@@ -82,8 +94,7 @@ class UserController extends Controller
      */
     public function update(UserUpdateRequest $request, $id)
     {
-        $user = User::findOrFail($id);
-        $user->update($request->all());
+        $this->userRepo->update($id, $request->all());
     
         return redirect()->route('users.index');
     }
@@ -96,8 +107,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
-        $user->delete();
+        $this->userRepo->delete($id);
 
         return redirect()->route('users.index');
     }

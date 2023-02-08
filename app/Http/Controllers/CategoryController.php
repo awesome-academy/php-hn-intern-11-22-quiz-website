@@ -5,9 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
+use App\Repositories\Category\CategoryRepositoryInterface;
 
 class CategoryController extends Controller
 {
+    /**
+     * @var CategoryRepositoryInterface
+     */
+    protected $categoryRepo;
+
+    public function __construct(
+        CategoryRepositoryInterface $categoryRepo
+    ) {
+        $this->categoryRepo = $categoryRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +27,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::all();
+        $categories = $this->categoryRepo->getAll();
 
         return view('categories.index', compact('categories'));
     }
@@ -38,7 +50,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Category::create($request->all());
+        $this->categoryRepo->create($request->all());
 
         return redirect()->route('categories.index');
     }
@@ -51,7 +63,7 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        $quizzes = Category::findOrFail($id)->quizzes;
+        $quizzes = $this->categoryRepo->getQuizzes($id);
 
         return view('categories.show', compact('quizzes'));
     }
@@ -64,7 +76,7 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        $category = Category::findOrFail($id);
+        $category = $this->categoryRepo->find($id);
 
         return view('categories.edit', compact('category'));
     }
@@ -78,8 +90,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryRequest $request, $id)
     {
-        $category = Category::findOrFail($id);
-        $category->update($request->all());
+        $this->categoryRepo->update($id, $request->all());
 
         return redirect()->route('categories.index');
     }
@@ -92,8 +103,7 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        $category = Category::findOrFail($id);
-        $category->delete();
+        $this->categoryRepo->delete($id);
 
         return redirect()->route('categories.index');
     }
