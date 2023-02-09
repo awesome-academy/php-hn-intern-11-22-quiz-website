@@ -34,6 +34,14 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\QuizQuestion\QuizQuestionRepositoryInterface::class,
             \App\Repositories\QuizQuestion\QuizQuestionRepository::class
         );
+        $this->app->singleton(
+            \App\Repositories\Take\TakeRepositoryInterface::class,
+            \App\Repositories\Take\TakeRepository::class
+        );
+        $this->app->singleton(
+            \App\Repositories\TakeAnswer\TakeAnswerRepositoryInterface::class,
+            \App\Repositories\TakeAnswer\TakeAnswerRepository::class
+        );
     }
 
     /**

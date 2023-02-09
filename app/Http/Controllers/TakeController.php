@@ -4,13 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Models\QuizAnswer;
 use Illuminate\Http\Request;
-use App\Models\Quiz;
 use App\Models\Take;
 use App\Models\TakeAnswer;
 use App\Models\QuizQuestion;
+use App\Repositories\Quiz\QuizRepositoryInterface;
+use App\Repositories\Take\TakeRepositoryInterface;
+use App\Repositories\TakeAnswer\TakeAnswerRepositoryInterface;
+use App\Repositories\QuizAnswer\QuizAnswerRepositoryInterface;
 
 class TakeController extends Controller
 {
+    /**
+     * @var QuizRepositoryInterface
+     */
+    protected $quizRepo;
+    /**
+     * @var TakeRepositoryInterface
+     */
+    protected $takeRepo;
+    /**
+     * @var TakeAnswerRepositoryInterface
+     */
+    protected $takeAnswerRepo;
+    /**
+     * @var QuizAnswerRepositoryInterface
+     */
+    protected $quizAnswerRepo;
+
+    public function __construct(
+        QuizRepositoryInterface $quizRepo,
+        TakeRepositoryInterface $takeRepo,
+        TakeAnswerRepositoryInterface $takeAnswerRepo,
+        QuizAnswerRepositoryInterface $quizAnswerRepo
+    ) {
+        $this->quizRepo = $quizRepo;
+        $this->takeRepo = $takeRepo;
+        $this->takeAnswerRepo = $takeAnswerRepo;
+        $this->quizAnswerRepo = $quizAnswerRepo;
+    }
 
     /**
      * Display a listing of the resource.
@@ -41,22 +72,21 @@ class TakeController extends Controller
     public function store(Request $request, $id)
     {
         $score = Take::INITIAL_SCORE;
-        $questions = Quiz::findOrFail($id)->quizQuestions;
+        $questions = $this->quizRepo->getQuestions($id);
         //calculate score
         foreach ($questions as $question) {
             switch ($question->type) {
                 case QuizQuestion::TYPE_TEXT:
-                    $answers = QuizAnswer::where('quiz_question_id', $question->id)->first();
+                    $answers = $this->quizAnswerRepo->getTextAnswer($question->$id);
                     $inputString = preg_replace('/\s+/', ' ', strtolower(head($request["answer$question->id"])));
                     if ($answers->answer === $inputString) {
                         $score ++;
                     }
                     break;
                 case QuizQuestion::TYPE_CHECKBOX:
-                    $correctAnswer = QuizAnswer::where('quiz_question_id', $question->id)
-                        ->where('correct', true)->count();
+                    $correctAnswer = $this->quizAnswerRepo->getCorrectAnswer($question->id);
                     foreach ($request["answer$question->id"] as $value) {
-                        $answer = QuizAnswer::findOrFail($value);
+                        $answer = $this->quizAnswerRepo->find($value);
                         if ($answer->correct) {
                             $correctAnswer --;
                         } else {
@@ -69,27 +99,19 @@ class TakeController extends Controller
                     }
                     break;
                 case QuizQuestion::TYPE_RADIO:
-                    $answer = QuizAnswer::findOrFail(head($request["answer$question->id"]));
+                    $answer = $this->quizAnswerRepo->find(head($request["answer$question->id"]));
+
                     if ($answer->correct) {
                         $score ++;
                     }
                     break;
             }
         }
-        $take = new Take();
-        $take->score = $score;
-        $take->status = Take::STATUS_DONE;
-        $take->user_id = auth()->id();
-        $take->quiz_id = $id;
-        $take->save();
+        $take = $this->takeRepo->createTake($score, Take::STATUS_DONE, auth()->id(), $id);
         //store take answer
         foreach ($questions as $question) {
             foreach ($request["answer$question->id"] as $answer) {
-                $takeAnswer = new TakeAnswer();
-                $takeAnswer->answer = $answer;
-                $takeAnswer->take_id = $take->id;
-                $takeAnswer->quiz_question_id = $question->id;
-                $takeAnswer->save();
+                $this->takeAnswerRepo->createTakeAnswer($answer, $take->id, $question->id);
             }
         }
 
@@ -104,9 +126,9 @@ class TakeController extends Controller
      */
     public function show($id)
     {
-        $take = Take::findOrFail($id);
-        $quiz = $take->quiz;
-        $takeAnswers = $take->takeAnswers;
+        $take = $this->takeRepo->find($id);
+        $quiz = $this->takeRepo->getQuiz($id);
+        $takeAnswers = $this->takeRepo->getTakeAnswers($id);
 
         return view('takes.show', compact(['take', 'quiz', 'takeAnswers']));
     }

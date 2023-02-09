@@ -44,4 +44,9 @@ class QuizRepository extends BaseRepository implements QuizRepositoryInterface
 
         return false;
     }
+
+    public function getQuestions($id)
+    {
+        return $this->model->findOrFail($id)->quizQuestions;
+    }
 }

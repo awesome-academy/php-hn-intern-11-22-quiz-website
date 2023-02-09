@@ -15,4 +15,14 @@ class QuizAnswerRepository extends BaseRepository implements QuizAnswerRepositor
     {
         return $this->model->findOrFail($id)->quizQuestion->quiz->id;
     }
+
+    public function getTextAnswer($id)
+    {
+        return $this->model->where('quiz_question_id', $id)->first();
+    }
+
+    public function getCorrectAnswer($id)
+    {
+        return $this->model->where('quiz_question_id', $id)->where('correct', true)->count();
+    }
 }
