@@ -30,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\QuizAnswer\QuizAnswerRepositoryInterface::class,
             \App\Repositories\QuizAnswer\QuizAnswerRepository::class
         );
+        $this->app->singleton(
+            \App\Repositories\QuizQuestion\QuizQuestionRepositoryInterface::class,
+            \App\Repositories\QuizQuestion\QuizQuestionRepository::class
+        );
     }
 
     /**
