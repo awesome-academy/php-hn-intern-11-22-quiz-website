@@ -2,11 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\QuizAnswer;
 use Illuminate\Http\Request;
+use App\Repositories\QuizAnswer\QuizAnswerRepositoryInterface;
 
 class QuizAnswerController extends Controller
 {
+    /**
+     * @var QuizAnswerRepositoryInterface
+     */
+    protected $quizAnswerRepo;
+
+    public function __construct(
+        QuizAnswerRepositoryInterface $quizAnswerRepo
+    ) {
+        $this->quizAnswerRepo = $quizAnswerRepo;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -57,7 +68,7 @@ class QuizAnswerController extends Controller
      */
     public function edit($id)
     {
-        $answer = QuizAnswer::findOrFail($id);
+        $answer = $this->quizAnswerRepo->find($id);
 
         return view('quizanswers.edit', compact('answer'));
     }
@@ -71,10 +82,10 @@ class QuizAnswerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $answer = QuizAnswer::findOrFail($id);
-        $answer->update($request->all());
+        $this->quizAnswerRepo->update($id, $request->all());
+        $quizId = $this->quizAnswerRepo->getQuizId($id);
 
-        return redirect()->route('quizzes.quizquestions.index', $answer->quizQuestion->quiz->id);
+        return redirect()->route('quizzes.quizquestions.index', $quizId);
     }
 
     /**
@@ -85,11 +96,7 @@ class QuizAnswerController extends Controller
      */
     public function destroy($id)
     {
-        $answer = QuizAnswer::findOrFail($id);
-        $numberAnswer = QuizAnswer::where('quiz_question_id', '=', $answer->quiz_question_id)->count();
-        if ($numberAnswer > QuizAnswer::MIN_ANSWER) {
-            $answer->delete();
-        }
+        $this->quizAnswerRepo->delete($id);
         
         return redirect()->back();
     }
