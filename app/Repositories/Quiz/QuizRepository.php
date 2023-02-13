@@ -4,6 +4,7 @@ namespace App\Repositories\Quiz;
 use App\Repositories\BaseRepository;
 use DB;
 use App\Models\Quiz;
+use Carbon\Carbon;
 
 class QuizRepository extends BaseRepository implements QuizRepositoryInterface
 {
@@ -48,5 +49,22 @@ class QuizRepository extends BaseRepository implements QuizRepositoryInterface
     public function getQuestions($id)
     {
         return $this->model->findOrFail($id)->quizQuestions;
+    }
+
+    public function getStatistic()
+    {
+        $year = Carbon::now()->year;
+        $initChart = config('init-chart.data');
+        $quizList = $this->model->where('created_at', 'like', "%" . $year . "%")->get();
+
+        foreach ($initChart as $month => $value) {
+            foreach ($quizList as $item) {
+                if ($item->created_at->format('M') == $month) {
+                    $initChart[$month]++;
+                }
+            }
+        }
+
+        return json_encode(array_merge($initChart));
     }
 }

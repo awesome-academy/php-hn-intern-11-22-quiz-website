@@ -6,6 +6,7 @@ use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Repositories\Quiz\QuizRepositoryInterface;
 
 class UserController extends Controller
 {
@@ -13,11 +14,17 @@ class UserController extends Controller
      * @var UserRepositoryInterface
      */
     protected $userRepo;
+    /**
+     * @var QuizRepositoryInterface
+     */
+    protected $quizRepo;
 
     public function __construct(
-        UserRepositoryInterface $userRepo
+        UserRepositoryInterface $userRepo,
+        QuizRepositoryInterface $quizRepo
     ) {
         $this->userRepo = $userRepo;
+        $this->quizRepo = $quizRepo;
     }
 
     /**
@@ -66,8 +73,9 @@ class UserController extends Controller
     {
         $quizzes = $this->userRepo->getQuizzes($id);
         $takes = $this->userRepo->getTakes($id);
+        $chartData = $this->quizRepo->getStatistic();
 
-        return view('users.show', compact(['quizzes', 'takes']));
+        return view('users.show', compact(['quizzes', 'takes', 'chartData']));
     }
 
     /**

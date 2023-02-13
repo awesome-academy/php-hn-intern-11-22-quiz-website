@@ -8,6 +8,22 @@
 
 <div class="container-fluid mt--7">
     <div class="row">
+        @if (auth()->user()->role_id == App\Models\User::ROLE_ADMIN)
+            <div class="col-xl-10 order-xl-1 mb-5">
+                <div class="card bg-secondary shadow">
+                    <div class="card-header bg-white border-0">
+                        <div class="row align-items-center">
+                            <h3 class="mb-0">{{ __('temp.numquizcre') }}</h3>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="chart">
+                            <canvas id="barChart" chart-data="{{ $chartData }}" class="chart-canvas text-center"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
         <div class="col-xl-10 order-xl-2 mb-5 mb-xl-0">
             <div class="card bg-secondary shadow">
                 <div class="card-header text-center border-0 pt-8 pt-md-4 pb-0 pb-md-4">

@@ -82,4 +82,5 @@ return [
     'message' => [
         'sure' => 'Are you sure about deleting this?',
     ],
+    'numquizcre' => 'The number of Quizzes created each month this year',
 ];
