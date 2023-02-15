@@ -81,4 +81,5 @@ return [
     'message' => [
         'sure' => 'Bạn đã chắc muốn xóa chứ?',
     ],
+    'numquizcre' => 'Số câu đố được tạo ra mỗi tháng năm nay',
 ];
