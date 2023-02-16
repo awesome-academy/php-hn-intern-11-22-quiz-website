@@ -8,4 +8,6 @@ interface UserRepositoryInterface extends RepositoryInterface
     public function getQuizzes($id);
 
     public function getTakes($id);
+
+    public function getAdmins();
 }

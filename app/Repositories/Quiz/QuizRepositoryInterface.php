@@ -12,4 +12,6 @@ interface QuizRepositoryInterface extends RepositoryInterface
     public function getQuestions($id);
 
     public function getStatistic();
+
+    public function getTodayQuiz();
 }
