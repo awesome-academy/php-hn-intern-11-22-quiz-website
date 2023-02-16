@@ -67,4 +67,9 @@ class QuizRepository extends BaseRepository implements QuizRepositoryInterface
 
         return json_encode(array_merge($initChart));
     }
+
+    public function getTodayQuiz()
+    {
+        return $this->model->whereDate('created_at', Carbon::now()->toDateString())->count();
+    }
 }

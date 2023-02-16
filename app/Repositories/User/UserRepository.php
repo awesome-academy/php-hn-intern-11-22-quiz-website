@@ -20,4 +20,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         return $this->model->findOrFail($id)->takes;
     }
+
+    public function getAdmins()
+    {
+        return $this->model->where('role_id', User::ROLE_ADMIN)->get();
+    }
 }
