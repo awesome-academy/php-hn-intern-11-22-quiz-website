@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests\QuizStoreRequest;
 use App\Repositories\Quiz\QuizRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Notification\NotificationRepositoryInterface;
+use Pusher\Pusher;
 
 class QuizController extends Controller
 {
@@ -17,13 +19,20 @@ class QuizController extends Controller
      * @var CategoryRepositoryInterface
      */
     protected $categoryRepo;
+    /**
+     * @var NotificationRepositoryInterface
+     */
+    protected $notificationRepo;
+    
 
     public function __construct(
         QuizRepositoryInterface $quizRepo,
-        CategoryRepositoryInterface $categoryRepo
+        CategoryRepositoryInterface $categoryRepo,
+        NotificationRepositoryInterface $notificationRepo
     ) {
         $this->quizRepo = $quizRepo;
         $this->categoryRepo = $categoryRepo;
+        $this->notificationRepo = $notificationRepo;
     }
     
     /**
@@ -99,9 +108,25 @@ class QuizController extends Controller
      */
     public function update(QuizStoreRequest $request, $id)
     {
-        $this->quizRepo->update($id, $request->all());
-
+        $quiz = $this->quizRepo->update($id, $request->all());
+        $this->notificationRepo->notify($quiz->user, 'updated');
+        
         return redirect()->route('quizzes.index');
+    }
+
+    public function readNotification($id)
+    {
+        try {
+            auth()->user()->Notifications->find($id)->markAsRead();
+        } catch (\Exception $e) {
+            return response()->json([
+                'mess' => $e,
+            ], 404);
+        }
+
+        return response()->json([
+            'mess' => 'success',
+        ], 200);
     }
 
     /**
@@ -112,8 +137,10 @@ class QuizController extends Controller
      */
     public function destroy($id)
     {
+        $quiz = $this->quizRepo->find($id);
+        $this->notificationRepo->notify($quiz->user, 'deleted');
         $this->quizRepo->deleteQuiz($id);
-
+    
         return redirect()->back();
     }
 

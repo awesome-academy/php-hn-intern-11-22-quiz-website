@@ -34,3 +34,5 @@ Route::resource('quizzes.quizquestions', QuizQuestionController::class)->shallow
 Route::resource('quizzes.takes', TakeController::class)->shallow();
 Route::resource('categories', CategoryController::class)->middleware('admin');
 Route::resource('quizanswers', QuizAnswerController::class);
+
+Route::get('/notification/read/{id}', [QuizController::class, 'readNotification'])->name('notification.read');

@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Category;
 use App\Repositories\Quiz\QuizRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
+use App\Repositories\Notification\NotificationRepositoryInterface;
 use Tests\TestCase;
 use Illuminate\Http\RedirectResponse;
 use Mockery;
@@ -20,6 +21,7 @@ class QuizControllerTest extends TestCase
     use WithFaker;
     protected $quizMock;
     protected $categoryMock;
+    protected $notificationMock;
     protected $quizController;
     protected $quiz;
     protected $quizzes;
@@ -34,12 +36,16 @@ class QuizControllerTest extends TestCase
         $this->categories = Category::factory()->count(5)->make();
         $this->quiz->id = rand(1, 100);
         $this->user = User::factory()->make();
+        $this->user->id = rand(1, 100);
+        $this->quiz->setRelation('user', $this->user);
         $this->quizMock = Mockery::mock(QuizRepositoryInterface::class);
         $this->categoryMock = Mockery::mock(CategoryRepositoryInterface::class);
+        $this->notificationMock = Mockery::mock(NotificationRepositoryInterface::class);
 
         $this->quizController = new QuizController(
             $this->quizMock,
             $this->categoryMock,
+            $this->notificationMock,
         );
     }
 
@@ -105,6 +111,7 @@ class QuizControllerTest extends TestCase
         $attr->description = $this->quiz->description;
         $attr->category_id = $this->quiz->category_id;
         $this->quizMock->shouldReceive('update')->andReturn($this->quiz);
+        $this->notificationMock->shouldReceive('notify')->andReturn(true);
         $result = $this->quizController->update($attr, $this->quiz->id);
         $this->assertInstanceOf(RedirectResponse::class, $result);
         $this->assertEquals(route('quizzes.index'), $result->getTargetUrl());
@@ -112,7 +119,9 @@ class QuizControllerTest extends TestCase
 
     public function testDestroy()
     {
+        $this->quizMock->shouldReceive('find')->andReturn($this->quiz);
         $this->quizMock->shouldReceive('deleteQuiz')->andReturn(true);
+        $this->notificationMock->shouldReceive('notify')->andReturn(true);
         $result = $this->quizController->destroy($this->quiz->id);
         $this->assertInstanceOf(RedirectResponse::class, $result);
     }

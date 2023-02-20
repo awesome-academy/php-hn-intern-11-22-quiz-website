@@ -48,6 +48,34 @@
                 </div>
             </li>
         </ul>
+        <ul class="navbar-nav align-items-center d-none d-md-flex">
+            <li class="nav-item dropdown">
+                <a class="nav-link text-primary" href="#" id="notification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-bell" aria-hidden="true" style="color: white"></i>
+                    @if (auth()->user()->unreadNotifications->count() > 0)
+                        <span class="pending badge btn-primary badge-number">{{ auth()->user()->unreadNotifications->count() }}</span>
+                    @endif
+                </a>
+                <ul class="dropdown-menu">
+                    <ul class="show-notification">
+                        @foreach (auth()->user()->notifications as $notification)
+                            <a href="{{ route('users.show', $notification->data['id']) }}">
+                            <li class="notification-box list" data-id="{{ $notification->id }}">
+                                <div class="row">
+                                    <div class="col-lg-12 col-sm-12 col-12 box-noti {{ $notification->read_at ? 'read' : '' }}">
+                                        <div>
+                                            {{ __('temp.creacc ') }} {{ $notification->data['status'] }}
+                                        </div>
+                                        <small class="box {{ $notification->read_at ? 'read' : '' }}">{{ $notification->created_at->diffForHumans() }}</small>
+                                    </div>
+                                </div>
+                            </li>
+                        </a>
+                        @endforeach
+                    </ul>
+                </ul>
+            </li>
+        </ul>
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
             <li class="nav-item dropdown">

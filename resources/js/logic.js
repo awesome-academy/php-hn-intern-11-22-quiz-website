@@ -1,4 +1,5 @@
 import Chart from 'chart.js/auto';
+import Pusher from 'pusher-js';
 
 function translate(key, replace = {}) {
   let translation = key.split('.').reduce((t, i) => t[i] || null, window.translations);
@@ -158,9 +159,63 @@ $(document).ready(function () {
         },
         scales: {
             y: {
-                beginAtZero: true
+                beginAtZero: false
             }
         }
     },
   });
+});
+
+
+$(document).ready(function () {
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('b1c8b5fe5e36b86a8029', {
+      cluster: 'ap1'
+    });
+    var channel = pusher.subscribe("my-channel-" + window.user);
+    channel.bind("my-event", async function (data) {
+        let pending = parseInt($("#notification").find(".pending").html());
+
+        if (Number.isNaN(pending)) {
+            $("#notification").append(
+                '<span class="pending badge bg-primary badge-number">1</span>'
+            );
+        } else {
+            $(".pending")
+                .html(pending + 1);
+        }
+        let notificationBox = ` 
+        <a href="/users/${data.id}">
+        <li class="notification-box list" data-id="${data.notification_id}">
+            <div class="row">
+                <div class="col-lg-12 col-sm-12 col-12 box-noti">
+                    <div>
+                        ${translate('temp.creacc')} ${data.status}
+                    </div>
+                    <small class="box">${translate('temp.creacc')}</small>
+                </div>
+            </div>
+        </li>
+        </a>`;
+
+        $(".show-notification").prepend(notificationBox);
+    });
+
+    $(document).on('click', '.notification-box', function () {
+        let id = $('.notification-box').attr('data-id');
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: "GET",
+            url: "/notification/read/" + id,
+            success: function () {
+                let pending = parseInt($("#notification").find(".pending").html());
+                $("#notification")
+                    .find(".pending")
+                    .html(pending - 1);
+            }
+        });
+    });
 });
