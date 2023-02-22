@@ -59,6 +59,12 @@ class UserTest extends ModelTestCase
         $this->assertBelongsToRelation($role, $this->user, new Role(), 'role_id');
     }
 
+    public function testGetUnreadNotificationAttribute()
+    {
+        $this->user = new User();
+        $this->assertIsNumeric($this->user->unread_notification);
+    }
+
     public function tearDown(): void
     {
         unset($this->user);

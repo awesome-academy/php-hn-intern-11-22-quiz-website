@@ -202,7 +202,7 @@ $(document).ready(function () {
         $(".show-notification").prepend(notificationBox);
     });
 
-    $(document).on('click', '.notification-box', function () {
+    $(document).on('click', '.show-notification', function () {
         let id = $('.notification-box').attr('data-id');
         $.ajax({
             headers: {
