@@ -42,6 +42,10 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\TakeAnswer\TakeAnswerRepositoryInterface::class,
             \App\Repositories\TakeAnswer\TakeAnswerRepository::class
         );
+        $this->app->singleton(
+            \App\Repositories\Notification\NotificationRepositoryInterface::class,
+            \App\Repositories\Notification\NotificationRepository::class
+        );
     }
 
     /**

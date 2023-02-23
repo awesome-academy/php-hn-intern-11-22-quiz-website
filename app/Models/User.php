@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Take::class);
     }
+
+    public function getUnreadNotificationAttribute()
+    {
+        return $this->Notifications->whereNull('read_at')->count();
+    }
 }
