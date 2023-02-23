@@ -7,7 +7,6 @@ use App\Http\Requests\QuizStoreRequest;
 use App\Repositories\Quiz\QuizRepositoryInterface;
 use App\Repositories\Category\CategoryRepositoryInterface;
 use App\Repositories\Notification\NotificationRepositoryInterface;
-use Pusher\Pusher;
 
 class QuizController extends Controller
 {

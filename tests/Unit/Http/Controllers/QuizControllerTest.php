@@ -154,6 +154,14 @@ class QuizControllerTest extends TestCase
         $this->assertArrayHasKey('alert', session()->all());
     }
 
+    public function testReadNotification()
+    {
+        $attr = new Request();
+        $result = $this->quizController->searchQuiz($attr);
+        $this->assertInstanceOf(RedirectResponse::class, $result);
+        $this->assertArrayHasKey('alert', session()->all());
+    }
+
     public function tearDown(): void
     {
         unset($this->quizMock);
