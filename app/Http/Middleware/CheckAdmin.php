@@ -6,6 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
 class CheckAdmin
 {
@@ -18,10 +19,10 @@ class CheckAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::user() || !(Auth::user()->role_id == User::ROLE_ADMIN)) {
-            return abort(401);
+        if (Auth::check() && Auth::user()->role_id == User::ROLE_ADMIN) {
+            return $next($request);
         }
-        
-        return $next($request);
+
+        throw new UnauthorizedHttpException($request);
     }
 }
