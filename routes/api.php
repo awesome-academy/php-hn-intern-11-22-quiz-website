@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,4 +25,5 @@ Route::post('register', [AuthController::class, 'register'])->name('api.register
 
 Route::middleware('auth:api')->name('api.')->group(function () {
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+    Route::resource('categories', CategoryController::class)->middleware('admin');
 });

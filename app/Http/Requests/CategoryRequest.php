@@ -28,6 +28,7 @@ class CategoryRequest extends FormRequest
                 'required',
                 'min:3',
                 'max:50',
+                'unique:categories',
             ],
         ];
     }
